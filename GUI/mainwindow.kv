@@ -1,0 +1,77 @@
+<CardItem>:
+	size_hint_y: None
+	id: content
+	text: self.otp
+	secondary_text: self.headline
+	tertiary_text: self.time
+	text_size: self.width, None
+	minimum_width: "400px"
+	padding: "2dp"
+	on_release: app.show_qrcode_dialog(self)
+
+	IconLeftWidget:
+		icon: "lock-clock"
+
+	IconRightWidget:
+		icon: "content-copy"
+		on_press: app.copy_icon_on_press(root)
+
+	IconRightWidget:
+		icon: "menu"
+		on_press: app.edit_icon_on_press(root)
+
+<QrCodeDialog>:
+    orientation: "vertical"
+	pos_hint: {"center_x": .5, "center_y": .5}
+
+	MDIconButton:
+	    id: "close_button"
+        icon: "close"
+        user_font_size: "24sp"
+        on_press: app.close_dialog(root)
+
+	MDCard:
+		orientation: "vertical"
+		padding: "8dp"
+		size_hint: None, None
+		size: "225dp", "225dp"
+		pos_hint: {"center_x": .5, "center_y": .5}
+
+		QRCodeWidget:
+			id: qr
+			data: 'Hello World'
+			width: "225dp"
+			height: "225dp"
+
+Screen:
+
+	MDScrollViewRefreshLayout:
+		id: refresh_layout
+		# refresh_callback: app.refresh_callback
+		padding: "20dp"
+
+        BoxLayout:
+            orientation: "vertical"
+
+            MDGridLayout:
+                id: box
+                adaptive_height: True
+                cols: 1
+                padding: "20dp"
+
+            BoxLayout:
+                orientation: "horizontal"
+                halign: "center"
+                valign: "center"
+
+                MDIconButton:
+                    icon: "plus"
+                    user_font_size: "32sp"
+                    size_hint: 1, .4
+                    on_press: app.add_button_on_press()
+
+                MDIconButton:
+                    icon: "cogs"
+                    user_font_size: "32sp"
+                    size_hint: 1, .4
+                    on_press: app.settings_button_on_press()
